@@ -6,7 +6,7 @@ require "date"
 #We wont retain the last snapshot of the month for 12 months
 #We wont retain the last snapshot of the year for 7 years
 describe PlanRetention::Standard do
-  describe '#snapshot_at' do
+  describe '.status' do
     current_date = Date.parse('01/01/2020')
 
     describe 'when it is standard plan with no expired date' do
@@ -14,8 +14,7 @@ describe PlanRetention::Standard do
 
       it 'should return "retained" status' do
         Time.stub :now, current_date do
-          plan_retention = PlanRetention::Standard.new
-          _(plan_retention.snapshot_at(snapshot_at)).must_equal 'retained'
+          _(PlanRetention::Standard.status(snapshot_at)).must_equal 'retained'
         end
       end
     end
@@ -25,8 +24,7 @@ describe PlanRetention::Standard do
 
       it 'should return "retained" status' do
         Time.stub :now, current_date do
-          plan_retention = PlanRetention::Standard.new
-          _(plan_retention.snapshot_at(snapshot_at)).must_equal 'deleted'
+          _(PlanRetention::Standard.status(snapshot_at)).must_equal 'deleted'
         end
       end
     end
@@ -36,8 +34,7 @@ describe PlanRetention::Standard do
         snapshot_at = current_date.prev_month(12).strftime('%d/%m/%Y')
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Standard.new
-            _(plan_retention.snapshot_at(snapshot_at)).must_equal 'deleted'
+            _(PlanRetention::Standard.status(snapshot_at)).must_equal 'deleted'
           end
         end
       end
@@ -46,8 +43,7 @@ describe PlanRetention::Standard do
         snapshot_at = current_date.prev_month(11).strftime('%d/%m/%Y')
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Standard.new
-            _(plan_retention.snapshot_at(snapshot_at)).must_equal 'deleted'
+            _(PlanRetention::Standard.status(snapshot_at)).must_equal 'deleted'
           end
         end
       end
@@ -58,8 +54,7 @@ describe PlanRetention::Standard do
         snapshot_at = current_date.prev_year(7).strftime('%d/%m/%Y')
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Standard.new
-            _(plan_retention.snapshot_at(snapshot_at)).must_equal 'deleted'
+            _(PlanRetention::Standard.status(snapshot_at)).must_equal 'deleted'
           end
         end
       end
@@ -68,8 +63,7 @@ describe PlanRetention::Standard do
         snapshot_at = current_date.prev_year(6).strftime('%d/%m/%Y')
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Standard.new
-            _(plan_retention.snapshot_at(snapshot_at)).must_equal 'deleted'
+            _(PlanRetention::Standard.status(snapshot_at)).must_equal 'deleted'
           end
         end
       end

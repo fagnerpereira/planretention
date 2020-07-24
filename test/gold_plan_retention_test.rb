@@ -13,8 +13,7 @@ describe PlanRetention::Gold do
 
       it 'should return "retained" status' do
         Time.stub :now, current_date do
-          plan_retention = PlanRetention::Gold.new
-          _(plan_retention.snapshot_at(snapshot_at)).must_equal 'retained'
+          _(PlanRetention::Gold.status(snapshot_at)).must_equal 'retained'
         end
       end
     end
@@ -24,8 +23,7 @@ describe PlanRetention::Gold do
 
       it 'should return "retained" status' do
         Time.stub :now, current_date do
-          plan_retention = PlanRetention::Gold.new
-          _(plan_retention.snapshot_at(snapshot_at)).must_equal 'deleted'
+          _(PlanRetention::Gold.status(snapshot_at)).must_equal 'deleted'
         end
       end
     end
@@ -34,8 +32,7 @@ describe PlanRetention::Gold do
       describe 'when current date is 13 months later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Gold.new
-            _(plan_retention.snapshot_at('30/11/2018')).must_equal 'deleted'
+            _(PlanRetention::Gold.status('30/11/2018')).must_equal 'deleted'
           end
         end
       end
@@ -43,8 +40,7 @@ describe PlanRetention::Gold do
       describe 'when current date is 12 months later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Gold.new
-            _(plan_retention.snapshot_at('31/01/2019')).must_equal 'retained'
+            _(PlanRetention::Gold.status('31/01/2019')).must_equal 'retained'
           end
         end
       end
@@ -54,8 +50,7 @@ describe PlanRetention::Gold do
       describe 'when current date is 7 years later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Gold.new
-            _(plan_retention.snapshot_at('31/12/2013')).must_equal 'deleted'
+            _(PlanRetention::Gold.status('31/12/2013')).must_equal 'deleted'
           end
         end
       end
@@ -63,8 +58,7 @@ describe PlanRetention::Gold do
       describe 'when current date is 8 years later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            plan_retention = PlanRetention::Gold.new
-            _(plan_retention.snapshot_at('01/01/2014')).must_equal 'deleted'
+            _(PlanRetention::Gold.status('01/01/2014')).must_equal 'deleted'
           end
         end
       end
