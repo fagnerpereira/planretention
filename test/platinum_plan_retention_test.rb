@@ -1,30 +1,29 @@
 require "test_helper"
-require "pry"
 require "date"
 
 #We will retain each snapshot daily for 42 days
 #We will retain the last snapshot of the month for 12 months
 #We will retain the last snapshot of the year for 7 years
-describe PlanRetention::Platinum do
+describe Plan::Platinum do
   describe '.status' do
     current_date = Date.parse('01/01/2020')
 
     describe 'when it is platinum plan with current day 40 days later' do
-      snapshot_at = current_date.prev_day(40).strftime('%d/%m/%Y')
+      snapshot_date = current_date.prev_day(40).strftime('%d/%m/%Y')
 
       it 'should return "retained" status' do
         Time.stub :now, current_date do
-          _(PlanRetention::Platinum.status(snapshot_at)).must_equal 'retained'
+          _(Plan::Platinum.status(snapshot_date)).must_equal 'retained'
         end
       end
     end
 
     describe 'when it is platinum plan with current day 43 days later' do
-      snapshot_at = current_date.prev_day(43).strftime('%d/%m/%Y')
+      snapshot_date = current_date.prev_day(43).strftime('%d/%m/%Y')
 
       it 'should return "retained" status' do
         Time.stub :now, current_date do
-          _(PlanRetention::Platinum.status(snapshot_at)).must_equal 'deleted'
+          _(Plan::Platinum.status(snapshot_date)).must_equal 'deleted'
         end
       end
     end
@@ -33,7 +32,7 @@ describe PlanRetention::Platinum do
       describe 'when current date is 13 months later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            _(PlanRetention::Platinum.status('30/11/2018')).must_equal 'deleted'
+            _(Plan::Platinum.status('30/11/2018')).must_equal 'deleted'
           end
         end
       end
@@ -41,7 +40,7 @@ describe PlanRetention::Platinum do
       describe 'when current date is 12 months later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            _(PlanRetention::Platinum.status('31/01/2019')).must_equal 'retained'
+            _(Plan::Platinum.status('31/01/2019')).must_equal 'retained'
           end
         end
       end
@@ -51,7 +50,7 @@ describe PlanRetention::Platinum do
       describe 'when current date is 7 years later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            _(PlanRetention::Platinum.status('31/12/2013')).must_equal 'retained'
+            _(Plan::Platinum.status('31/12/2013')).must_equal 'retained'
           end
         end
       end
@@ -59,7 +58,7 @@ describe PlanRetention::Platinum do
       describe 'when current date is 8 years later' do
         it 'should return "deleted" status' do
           Time.stub :now, current_date do
-            _(PlanRetention::Platinum.status('01/01/2014')).must_equal 'deleted'
+            _(Plan::Platinum.status('01/01/2014')).must_equal 'deleted'
           end
         end
       end

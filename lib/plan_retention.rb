@@ -1,8 +1,6 @@
-require "plan_retention/version"
-require "plan_retention/standard"
-require "plan_retention/platinum"
-require "plan_retention/gold"
+# frozen_string_literal: true
 
-module PlanRetention
-  class Error < StandardError; end
-end
+require 'plan_retention/version'
+require 'plan/standard'
+require 'plan/gold'
+require 'plan/platinum'
