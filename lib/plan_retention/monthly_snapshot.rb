@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module MonthlySnapshot
   def status(snapshot_date)
     snapshot_date = Date.parse(snapshot_date)
@@ -13,7 +15,7 @@ module MonthlySnapshot
   def monthly_snapshots(snapshot_date)
     limit_date = snapshot_date.next_month(12)
 
-    if limit_date - Time.now < 0
+    if (limit_date - Time.now).negative?
       'deleted'
     else
       'retained'

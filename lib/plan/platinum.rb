@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'plan_retention/daily_snapshot'
 require 'plan_retention/monthly_snapshot'
 require 'plan_retention/yearly_snapshot'
@@ -9,4 +11,3 @@ module Plan
     extend YearlySnapshot
   end
 end
-

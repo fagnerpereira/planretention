@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DailySnapshot
   def status(snapshot_date)
     snapshot_date = Date.parse(snapshot_date)

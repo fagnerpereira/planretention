@@ -1,8 +1,10 @@
-require "test_helper"
-require "date"
+# frozen_string_literal: true
 
-#We will retain each snapshot daily for 42 days
-#We will retain the last snapshot of the month for 12 months
+require 'test_helper'
+require 'date'
+
+# We will retain each snapshot daily for 42 days
+# We will retain the last snapshot of the month for 12 months
 describe Plan::Gold do
   describe '#snapshot_at' do
     current_date = Date.parse('01/01/2020')

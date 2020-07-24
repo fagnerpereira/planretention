@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module YearlySnapshot
   def status(snapshot_date)
     snapshot_date = Date.parse(snapshot_date)
@@ -17,7 +19,7 @@ module YearlySnapshot
   def yearly_snapshots(snapshot_date)
     limit_date = snapshot_date.next_year(7)
 
-    if limit_date - Time.now < 0
+    if (limit_date - Time.now).negative?
       'deleted'
     else
       'retained'

@@ -1,9 +1,11 @@
-require "test_helper"
-require "date"
+# frozen_string_literal: true
 
-#We will retain each snapshot daily for 42 days
-#We wont retain the last snapshot of the month for 12 months
-#We wont retain the last snapshot of the year for 7 years
+require 'test_helper'
+require 'date'
+
+# We will retain each snapshot daily for 42 days
+# We wont retain the last snapshot of the month for 12 months
+# We wont retain the last snapshot of the year for 7 years
 describe Plan::Standard do
   describe '.status' do
     current_date = Date.parse('01/01/2020')
